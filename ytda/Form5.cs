@@ -43,7 +43,7 @@ namespace ytda
             urfyt.HeaderText = "ÜRÜN FİYATI";
         }
         
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)//ekle butonu
         {
             cmd = new SqlCommand("INSERT INTO satilan(urkd, kID, suradt, surfyt) VALUES(@urkd, @kID, @suradt, @surfyt)", con);
             cmd.Parameters.Add("@urkd", SqlDbType.Int).Value = textBox1.Text;
@@ -61,7 +61,7 @@ namespace ytda
             cmd.CommandText = "INSERT INTO satilan VALUES('" + textBox1.Text + "', '" + textBox4.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "')";
             cmd.ExecuteNonQuery();
             con.Close();*/
-            foreach (Control item in this.Controls)
+            foreach (Control item in this.Controls)//forech döngüsü ile textboxların textlerini kontrol edip temizleyen kod satırı
             {
                 if (item is TextBox)
                 {
@@ -77,7 +77,7 @@ namespace ytda
             dd();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)//güncelle butonu
         {
             cmd = new SqlCommand("UPDATE satilan SET urkd=@urkd, suradt=@uradt, surfyt=@urfyt WHERE ID=@id", con);
             cmd.Parameters.AddWithValue("@id", int.Parse(textBox5.Text));
@@ -106,7 +106,7 @@ namespace ytda
             dd();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)//sil butonu
         {
             cmd=new SqlCommand();
             con.Open();
@@ -129,7 +129,7 @@ namespace ytda
         private void button4_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form3 f3=new Form3();
+            Form3 f3 = new Form3();
             f3.ShowDialog();
         }
 

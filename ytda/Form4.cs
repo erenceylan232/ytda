@@ -22,7 +22,7 @@ namespace ytda
         SqlDataAdapter da;
         DataSet ds;
 
-        public void dd()
+        public void dd()//daatagridview de tablomuzu göstermek ve yenilemek için kullandığımız kod satırı
         {
             con = new SqlConnection("Server=.; Initial Catalog=db2;Integrated Security=SSPI");
             da = new SqlDataAdapter("Select * From alinan", con);
@@ -43,7 +43,7 @@ namespace ytda
             urfyt.HeaderText = "ÜRÜN FİYATI";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)//ekle butonu
         {
             using (SqlCommand cmd = new SqlCommand(@"insert into alinan(urkd, kID, uradt, urfyt) values(@urkd, @kID, @uradt, @urfyt)", con)) 
             {
@@ -83,7 +83,7 @@ namespace ytda
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)//güncelle butonu
         {
             cmd = new SqlCommand("UPDATE alinan SET urkd=@urkd, uradt=@uradt, urfyt=@urfyt WHERE ID=@id", con);
             cmd.Parameters.AddWithValue("@id", int.Parse(textBox5.Text));
@@ -112,7 +112,7 @@ namespace ytda
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)//sil butonu
         {
             cmd = new SqlCommand();
             con.Open();
@@ -132,14 +132,14 @@ namespace ytda
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)//anasayfa olarak belirlediğimiz yani form3'e dönme butonu
         {
             this.Hide();
-            Form3 f3=new Form3();
+            Form3 f3 = new Form3();
             f3.ShowDialog();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)//datagridvied de tıklanan hücreyi textbox'ların text'lerine verileri aktarma işlemi
         {
             textBox5.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             textBox1.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();

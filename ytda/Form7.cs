@@ -152,35 +152,35 @@ namespace ytda
             dd();
         }
 
-        private void button5_Click(object sender, EventArgs e)//datagrid'de gösteren bilgileri excele aktaran butonumuz
+        private void button5_Click(object sender, EventArgs e)//datagrid'de gösteren bilgileri excele aktaran ve kaydeden butonumuz
         {
-            SaveFileDialog sv = new SaveFileDialog();
-            sv.OverwritePrompt = false;
-            sv.Title = "Excel Dosyaları";
-            sv.DefaultExt = "xlsx";
-            sv.Filter = "xlsx Dosyaları (*.xlsx)|*xlsx|Tüm Dosyalar(*.*)|*.*";
-            if (sv.ShowDialog() == DialogResult.OK)
+            SaveFileDialog sv = new SaveFileDialog();//kaydetmek için dizin ekranında yardım olması için değişken atadık
+            sv.OverwritePrompt = false;//üzerine yazma işlemi için onay mesajı vermesi için bu kod satırını kullandık
+            sv.Title = "Excel Dosyaları";//dialog pencerisinin başlığını atadık
+            sv.DefaultExt = "xlsx";//dosya uzantımızı xlsx olarak eşitledik
+            sv.Filter = "xlsx Dosyaları (*.xlsx)|*xlsx|Tüm Dosyalar(*.*)|*.*";//dialog ekranı açıldığında göreceğimiz dosyaları belirledik
+            if (sv.ShowDialog() == DialogResult.OK)//dosya kaydedildiği dialog ekranında 'OK' tuşuna basıldı ise aşağıdaki komut satırını çalıştırıcak
             {
-                Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-                Microsoft.Office.Interop.Excel._Workbook wbk = app.Workbooks.Add(Type.Missing);
-                Microsoft.Office.Interop.Excel._Worksheet wkt = null;
-                app.Visible = true;
-                wkt = wbk.Sheets["Sayfa 1"];
-                wkt = wbk.ActiveSheet;
-                wkt.Name = "Excel Dışa Aktarım";
-                for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();//excel uygulaması açıldığı sırada işlem yapacağımız için değişken atadık
+                Microsoft.Office.Interop.Excel._Workbook wbk = app.Workbooks.Add(Type.Missing);//excel uygulamasında sayfa açıldığında işlem yazdıracağımız için değişken atadık
+                Microsoft.Office.Interop.Excel._Worksheet wkt = null;//açılan ilk sayfamızda çalışma kağıdımızı boş yani null'a eşitliyoruz
+                app.Visible = true;//uygulama açıldığında/görünür olduğunda
+                wkt = wbk.Sheets["Sayfa1"];//çalışma kağıdında sayfa1 adlı sayfa açıyoruz
+                wkt = wbk.ActiveSheet;//sayfayı aktive ediyoruz
+                wkt.Name = "Excel dışa aktarım";//çalışma kağımıza isim atıyoruz
+                for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)//datagridview1'de ki tablomuzun sütunlarını 1 artırarak arama/sayma işlemi yapıyoruz
                 {
-                    wkt.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+                    wkt.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;//çalışma kağıdımızın hücre1'inden başlayarak datagridview'deki sütunları excel'e yazdırıyoruz
                 }
-                for (int i = 0; i <= dataGridView1.Rows.Count - 1; i++)
+                for (int i = 0; i <= dataGridView1.Rows.Count - 1; i++)//datagridview1'de ki tablomuzun satırlarını arama/sayma işlemi yapıyoruz
                 {
-                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    for (int j = 0; j < dataGridView1.Columns.Count; j++)//datagridview1'de ki sütunları tekrar arama/sayma işlemi yapıyoruz
                     {
-                        wkt.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                        wkt.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();//çalışma kağıdımızda ki hücremize datagridview1'den çekilen satır ve sütunları string türünde hizalı bir şekilde yazdırıyoruz
                     }
                 }
                 wbk.SaveAs(sv.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-
+                //sayfamızı excel tipi olarak kaydediyoruz
             }
         }
     }

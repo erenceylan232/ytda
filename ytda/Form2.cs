@@ -19,9 +19,9 @@ namespace ytda
         }
         SqlConnection con;
         SqlCommand cmd;
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)//kayıt ol butonu
         {
-            if (textBox2.Text == textBox3.Text) 
+            if (textBox2.Text == textBox3.Text) //şifreler aynı ise koşul sağlanıp aşağıda ki kod satırı işlem yapmakta
             {
                 Form7 f7 = new Form7();
                 this.Hide();
@@ -36,7 +36,7 @@ namespace ytda
                 cmd = new SqlCommand("SELECT MAX(ID) FROM klnc", con);
                 con.Open();
                 SqlDataReader rd = cmd.ExecuteReader();
-                if (rd.HasRows)
+                if (rd.HasRows)//kullanıcı ID'sini klnc tablosundan okuyup messagebox içinde kullanıcıya bilgi veriyor
                 {
                     rd.Read();
                     MessageBox.Show("Kullanıcı ID=" + rd.GetInt32(0).ToString() + " lütfen ID'nizi saklıyınız.");
